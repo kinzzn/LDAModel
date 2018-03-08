@@ -148,6 +148,7 @@ class LDAModel(object):
         self.logging()
 
     def logging(self):
+        print('wait for logging')
         pass
 
 

@@ -41,7 +41,7 @@ def doc_process():
                     for emojis in m:
                         content = content.replace(emojis, ' ')
                 # 去掉除'之外的标点符号
-                m = re.findall('[’：“”，。！？》《【】!"#$%&()*+,-./:;<=>?@[\\]^_`{|}「」~]+', content)
+                m = re.findall('[’•：“”，。！？》《【】!"#$%&()*+,-./:;<=>?@[\\]^_`{|}「」~]+', content)
                 if m:
                     for code in m:
                         content = content.replace(code, ' ')
@@ -127,6 +127,7 @@ def doc_process():
     # 存文档篇数
     confobj.confsettextnums(all_text_num)
 
+    print('数据预处理完毕')
     return(all_text_num, len(all_dict))
     # 文档集list，每篇的词数，词典->存到相应的文件
     # M，V返回给调用，不一定用

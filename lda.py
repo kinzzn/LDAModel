@@ -16,7 +16,7 @@ class LDAModel(object):
         self.alpha = pc.alpha
         self.beta = pc.beta
         self.iter_times = pc.iters
-        # self.top_words_num = top_words_num 每个类特征词个数
+        self.top_words_num = 5 # 每个类特征词个数，也写入conf
         print('paras: K='+str(self.K)+' alpha='+str(self.alpha)+' beta='+str(self.beta)+' iter='+str(self.iter_times))
 
         # 从dir.conf中读取文档路径
@@ -69,6 +69,8 @@ class LDAModel(object):
             for y in range(0,int(self.all_text_words[m])):
                 topic = random.randint(0,self.K-1)  # topic编号应该从1到K
                 self.Z[m][y] = topic
+                # nw：获取每篇文章，每篇文章的词，获得词在字典找index，在nw的对应位置的topic操作
+                # nw：词index（V）,topic（）
                 self.nw[self.dicts.index(self.all_text[m][y])][topic] += 1   # 词典，顺序必须和nw的V*K维对应，中间不能有变化
                 self.nd[m][topic] += 1
                 self.nwsum[topic] += 1
@@ -111,7 +113,44 @@ class LDAModel(object):
                     topic = self.sampling(m,w)
                     self.Z[m][w] = topic
         # logging
+        print("计算M-K: theta")
+        for m in range(0,self.M):
+            self.theta[m] = (self.nd[m]+self.alpha)/(self.ndsum[m]+self.K*self.alpha)
+        print(self.theta)
+        print("计算N-K: phi")
+        for k in range(0,self.K):
+            self.phi[k] = (self.nw.T[k]+self.beta)/(self.nwsum[k]+self.V*self.beta)
+            # ndarray.T:转制 -> phi: K * V（词典序）
+        print(self.phi)
+
+        print("打印每类主题词")
+        self.top_words_num = min(self.top_words_num, self.V)
+        for k in range(0,self.K):
+            twords = []
+            for v in range(0,self.V):
+                twords.append((v,self.phi[k][v]))  # twords存储 词典编号，KV对应phi值的元组
+            print('排序前的twords：')
+            print(twords)
+            twords.sort(key=lambda i:i[1],reverse=True) # 按第二项排序
+            print('排序后的twords：')
+            print(twords)
+            for y in range(0,self.top_words_num):
+                print(self.dicts[twords[y][0]]) # 打印每一类的关键词
+
+        print("保存其他参数")
+        # 保存nw,nwsum,nd,ndsum,Z
+        # 保存K,beta,alpha,itertimes,top_words_num
+
+        print("计算后的Z")
         print(self.Z)
+
+        # 将当前所有数据保存到output文件夹
+        self.logging()
+
+    def logging(self):
+        pass
+
+
 
 
 

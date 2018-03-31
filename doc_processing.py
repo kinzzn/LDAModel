@@ -12,11 +12,11 @@ from settings import Configs
 def doc_process():
     # 按之前Ipython的来
     # 分词
-    doc_path = 'F:/ProgramInstall/JetBrains/PyCharm/work/mylda/input'
+    doc_path = 'F:/ProgramInstall/JetBrains/PyCharm/work/mylda/weibo'
     # 读取分好类的txt
     doc_dir = '/'
     # 文档顺序：ZARA，虾米，雅思，RADWIMPS
-    doc_name = ['1744769622.txt']#, '1718436033.txt', '2010639813.txt', '5539705240.txt']
+    doc_name = ['霍金去世.txt','百世快递陷窘境.txt','2018考研国家线.txt','水形物语.txt','微博315.txt']#, '1718436033.txt', '2010639813.txt', '5539705240.txt']
 
     marklist = []
     all_shorttext = []
@@ -132,4 +132,4 @@ def doc_process():
     # 文档集list，每篇的词数，词典->存到相应的文件
     # M，V返回给调用，不一定用
 
-
+doc_process()

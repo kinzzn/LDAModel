@@ -14,3 +14,6 @@
 - lda.py				主程序
 - doc_processing.py			文档处理
 - settings.py				读取conf
+
+
+已烂尾= = 更完整的解决方案见bishe项目，此项目视情况修改或删除

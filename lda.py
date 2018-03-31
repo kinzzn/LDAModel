@@ -3,7 +3,6 @@ import random
 
 import numpy as np
 
-import doc_processing
 from settings import Configs
 
 class LDAModel(object):
@@ -61,7 +60,6 @@ class LDAModel(object):
 
         self.theta = np.zeros((self.M,self.K),dtype=np.float)
         self.phi = np.zeros((self.K,self.V),dtype=np.float)
-
 
         # 随机分配类型
         for m in range(0, self.M):
@@ -143,17 +141,14 @@ class LDAModel(object):
 
         print("计算后的Z")
         print(self.Z)
-
-        # 将当前所有数据保存到output文件夹
-        self.logging()
-
-    def logging(self):
-        print('wait for logging')
-        pass
-
-
-
-
+    #
+    #     # 将当前所有数据保存到output文件夹
+    #     self.logging()
+    #
+    # def logging(self):
+    #     print('wait for logging')
+    #     pass
+    #
 
     # 评价方法
     # 误报率 = 错分到某类的/（错分+正分到此类的）
@@ -161,12 +156,3 @@ class LDAModel(object):
     # F值
     # 毕设的短文本相似度分析还是不用这个评价方法了...
     # 项目中只分两类或三类是比较方便的
-
-def run():
-    [all_text_num, all_dict_len]= doc_processing.doc_process()  # 讲道理也可以把所有文件信息通过传参传进来
-    lda = LDAModel()#all_text_num,all_dict_len)
-    lda.start()
-
-
-if __name__ == '__main__':
-    run()
